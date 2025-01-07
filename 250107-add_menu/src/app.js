@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./styles.css";
+import "./style.css";
 
 const content = [
   [
@@ -59,6 +59,12 @@ export default function App() {
             onClick={() => setActiveContentIndex(2)}
           >
             Related Resources
+          </button>
+          <button
+            className={activeContentIndex === 3 ? "active" : ""}
+            onClick={() => setActiveContentIndex(3)}
+          >
+            HogeHoge!
           </button>
         </menu>
         <div id="tab-content">
