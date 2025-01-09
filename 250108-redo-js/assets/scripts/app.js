@@ -82,3 +82,65 @@ class Student {
 
 const yamada = new Student("Yam!", 99);
 
+// array
+const thisIsArr =["this", "is", "Arr"];
+console.log(thisIsArr[1]);
+thisIsArr.push("ay");
+console.log(thisIsArr);
+// func in func
+const idx = thisIsArr.findIndex((item) => {
+  return item === 'ay';
+});
+console.log(idx);
+// nested
+const nestedArr = [
+  ["aaaa", "bbbb"],
+  ["cccc", "dddd"]
+];
+console.log(nestedArr[0][0]);
+// map
+const edited = thisIsArr.map((element) => ({name : element + "!"})); // cause map() returns new array
+console.log(edited);
+
+// destructuring
+
+// const brandNewArr = ["brand", "new", "array"];
+// const first = brandNewArr[0];
+// const second = brandNewArr[1];
+const [first, second, third] = ["brand", "new", "array"];
+console.log(first + " " + second + " " + third);
+
+// destructuring in object
+// const someObj = {
+//   name: "Some",
+//   value: 999
+// };
+// const name = someObj.name;
+// const value = someObj.value;
+const {name: NaMe, value} = { // should match with field but also could have alias
+  name: "Some",
+  value: 999
+};
+console.log(NaMe + " " + value);
+
+// つまり。。
+// function storeOrder(order) {
+//   localStorage.setItem('id', order.id);
+//   localStorage.setItem('currency', order.currency);
+// }
+// 同じ
+// function storeOrder({id, currency}) {
+//   localStorage.setItem('id', id);
+//   localStorage.setItem('currency', currency);
+// }
+
+// spread
+const nestedSpread = [...thisIsArr, nestedArr];
+console.log(nestedArr);
+const spreaded = [...thisIsArr, ...nestedArr]; // get all elements
+console.log(spreaded);
+const extended = {
+  important: true,
+  ...thisIsArr
+};
+console.log(extended);
