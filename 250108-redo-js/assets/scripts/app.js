@@ -176,3 +176,15 @@ function init() {
 }
 // greet123(); // greet123 is not defined
 init();
+
+
+// reference & primitive
+let userMessage = 'message'; // reference
+userMessage = 'edited'; // new string, not exchanged
+// concatも既存の値を変えるのではなく新しいStringを生成する
+
+// also object = reference
+// メモリ住所に依存するため
+const hobbies = ["1", "2"]; // 住所が固定されているconst
+hobbies.push("3");
+console.log(hobbies);
