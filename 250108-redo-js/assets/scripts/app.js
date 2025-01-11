@@ -144,3 +144,35 @@ const extended = {
   ...thisIsArr
 };
 console.log(extended);
+
+function handleTimeout() {
+  console.log("Timed out!");
+}
+
+const handleTimeout2 = () => {
+  console.log("Another Timed out");
+};
+
+
+// function to function(as var)
+setTimeout(handleTimeout, 2000);
+setTimeout(handleTimeout2, 3000);
+setTimeout(() => {
+  console.log('Third Timed out...');
+}, 4000);
+// setTimeout(handleTimeout()); // set handleTimeout()'s return value
+
+function greeter(greetFn) {
+  greetFn();
+};
+greeter(() => console.log("Hello, function"));
+
+// not for vanila, for react
+function init() {
+  function greet123() {
+    console.log('Hi...');
+  }
+  greet123();
+}
+// greet123(); // greet123 is not defined
+init();
