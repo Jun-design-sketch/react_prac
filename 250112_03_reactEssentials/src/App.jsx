@@ -1,45 +1,13 @@
-// dynamic image: optimized
-import reactImg from "./assets/react-core-concepts.png";
 // import componentImg from "./assets/components.png";
+// react hook
+import { useState } from 'react';
+
+import Header from "./components/Header/Header.jsx";
+import CoreConcept from "./components/CoreConcept.jsx";
+import TabButton from "./components/TabButton.jsx";
+
 // import data
 import { CORE_CONCEPTS } from "./data.js";
-
-// dynamic element
-const reactDescriptions = ["Fundamental", "Crucial", "Core"];
-
-function genRandomInt(max) {
-  return Math.floor(Math.random() * (max + 1));
-}
-
-// create component
-function Header() {
-  const description =
-    reactDescriptions[genRandomInt(reactDescriptions.length - 1)];
-
-  return (
-    <header>
-      {/* <img src="src/assets/react-core-concepts.png" alt="Stylized atom" /> */}
-      <img src={reactImg} alt="Stylized atom" />
-      <h1>React Essentials</h1>
-      <p>
-        {description} React concepts you will need for almost any app you are
-        going to build!
-      </p>
-    </header>
-  );
-}
-
-// props: key-value fairs
-// function CoreConcept(props) {
-function CoreConcept({title, description, image}) { // de-structuring single variable
-  return (
-    <li>
-      <img src={image} alt="..." />
-      <h3>{title}</h3>
-      <h4>{description}</h4>
-    </li>
-  );
-}
 
 function App() {
   // 1 react component: seems like just function
@@ -49,10 +17,25 @@ function App() {
   // 4 React anaylyze Component Hierarchy
   // 5 Built-in Components => rendered as DOM nodes
   //   Custom Components => traverses the components, like function
+
+  // hook and state
+  // 1 Only call Hooks inside of Component Functions
+  // 2 Only call Hooks on the top level
+  // 3 State is array with 2 element (value, setter)
+  const [ selectedTopic, setSelectedTopic ] = useState('Please click a button');
+
+  function handleSelect(selectedButton) {
+    setSelectedTopic(selectedButton);
+  }
+
   return (
     <div>
       {/* component in component */}
       {/* <Header></Header> */}
+      {/* header.cssを別途生成しても、headerタグにスタイルが適用される */}
+      {/* <header>
+        <h1>hello world!</h1>
+      </header> */}
       <Header />
       <main>
         <section id="core-concepts">
@@ -69,6 +52,27 @@ function App() {
             <CoreConcept {...CORE_CONCEPTS[2]} />
             <CoreConcept {...CORE_CONCEPTS[3]} />
           </ul>
+        </section>
+        <section>
+          <section id="examples">
+            <h2>Examples</h2>
+            <menu>
+              {/* component合成 "children" */}
+              <TabButton onSelect={() => handleSelect("components")}>
+                Components
+              </TabButton>
+              {/* component合成 "attributes" */}
+              {/* <TabButton label="Components"></TabButton> */}
+              <TabButton onSelect={() => handleSelect("jsx")}>JSX</TabButton>
+              <TabButton onSelect={() => handleSelect("props")}>
+                Props
+              </TabButton>
+              <TabButton onSelect={() => handleSelect("state")}>
+                State
+              </TabButton>
+            </menu>
+            {selectedTopic}
+          </section>
         </section>
       </main>
     </div>
