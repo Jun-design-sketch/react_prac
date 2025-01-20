@@ -31,6 +31,9 @@ export default function Examples() {
     <Section title="Example" id="examples">
       <Tabs
       // children以外の入れ子が欲しいパターン：複数のslotを使用できる
+        // componentIdentifierをprop valueで送る
+        // componentで受け取り、customComponent製造に用いる
+        // buttonsContainer="menu"
         buttons={
           <>
             <TabButton
