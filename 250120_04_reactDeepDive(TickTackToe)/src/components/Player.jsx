@@ -1,7 +1,8 @@
 import { useState } from "react";
 
-export default function Player({ name, symbol }) {
+export default function Player({ initialName, symbol }) {
   const [isEditing, setIsEditing] = useState(false);
+  const [playerName, setPlayerName] = useState(initialName);
 
   function handleEditClick() {
     // NOT RECOMMENDED
@@ -16,17 +17,25 @@ export default function Player({ name, symbol }) {
     // 以前の状態に基づくstateをsetするなら関数を使うこと
   }
 
-  let playerName = <span className="player-name">{name}</span>;
+  function handleChange(event) {
+    // キーが押される度にeventが来て、再度valueへsetする
+    setPlayerName(event.target.value);
+  }
+
+  let editablePlayerName = <span className="player-name">{playerName}</span>;
   if (isEditing) {
-    playerName = <input type="text" required value={name}/>;
+    // 普通にvalueにするとずっと値が上書きする。two-way binding
+    editablePlayerName = (
+      <input type="text" required value={playerName} onChange={handleChange} />
+    );
   }
 
   return (
     <li>
       <span className="player"></span>
-        {playerName}
+      {editablePlayerName}
       <span className="player-symbol">{symbol}</span>
-      <button onClick={handleEditClick}>{isEditing ? 'Save' : 'Edit'}</button>
+      <button onClick={handleEditClick}>{isEditing ? "Save" : "Edit"}</button>
     </li>
   );
 }
