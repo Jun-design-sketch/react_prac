@@ -6,7 +6,7 @@ const initialGameBoard = [
   [null, null, null],
 ];
 
-export default function GameBoard() {
+export default function GameBoard({ onSelectSquare, activePlayerSymbol }) {
   const [gameBoard, setGameBoard] = useState(initialGameBoard);
 
   // Objects & Arrays == referenceValues
@@ -14,7 +14,7 @@ export default function GameBoard() {
   // なぜそのまま値を変えてはならないか？
   // オブジェクトや配列はメモリ住所で覚えられるので
   // 住所の中にある何かを変えてもメモリ住所は同じ
-  // 住所が同じだから変化が起きたとは思われずreactはstateの変更を引き起こせない。
+  // 住所が同じだから変化が起きたとは思われずreactはstateの変更を引き起こせない。(感じられない)
   function handleSelectSquare(rowIndex, colIndex) {
     setGameBoard((prevGameBoard) => {
       // 今更のメモ
@@ -29,9 +29,11 @@ export default function GameBoard() {
       // ];
       const updatedBoard = structuredClone(prevGameBoard);
 
-      updatedBoard[rowIndex][colIndex] = "X";
+      updatedBoard[rowIndex][colIndex] = activePlayerSymbol;
       return updatedBoard;
     });
+
+    onSelectSquare();
   }
 
   return (
