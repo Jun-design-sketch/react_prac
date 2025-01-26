@@ -1,6 +1,14 @@
 import { useState } from "react";
 
-export default function Player({ initialName, symbol, isActive }) {
+export default function Player({
+  initialName,
+  symbol,
+  isActive,
+  onChangeName,
+}) {
+  // LiftUpStateのAntiPattern
+  // playerNameはonChangeするたびに変更されてPlayer Componentは再起動している（inputフィールド更新）
+  // これをApp Componentに持ち上げると今度はAppがonChangeする度にリロードせねばならなくなる
   const [isEditing, setIsEditing] = useState(false);
   const [playerName, setPlayerName] = useState(initialName);
 
@@ -15,6 +23,9 @@ export default function Player({ initialName, symbol, isActive }) {
     // PASS A FUNCTION
     setIsEditing((editing) => !editing);
     // 以前の状態に基づくstateをsetするなら関数を使うこと
+    if (isEditing) {
+      onChangeName(symbol, playerName);
+    }
   }
 
   function handleChange(event) {
@@ -31,7 +42,7 @@ export default function Player({ initialName, symbol, isActive }) {
   }
 
   return (
-    <li className={isActive ? 'active' : undefined}>
+    <li className={isActive ? "active" : undefined}>
       <span className="player"></span>
       {editablePlayerName}
       <span className="player-symbol">{symbol}</span>
