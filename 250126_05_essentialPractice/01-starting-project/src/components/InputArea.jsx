@@ -1,4 +1,4 @@
-export default function SearchBar({ parameters, handleChangeValue }) {
+export default function InputArea({ parameters, handleChangeValue }) {
   return (
     <div id="user-input">
       <div className="input-group">
@@ -25,10 +25,10 @@ export default function SearchBar({ parameters, handleChangeValue }) {
         <label>EXPECTED RETURN</label>
         {/* 期待収益 */}
         <input
-          id="expectReturn"
+          id="expectedReturn"
           type="text"
           required
-          value={parameters.expectReturn}
+          value={parameters.expectedReturn}
           onChange={handleChangeValue}
         />
         <label>DURATION</label>

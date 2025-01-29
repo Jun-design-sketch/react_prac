@@ -1,27 +1,40 @@
+import { calculateInvestmentResults, formatter } from "../util/investment";
 export default function Results({ parameters }) {
+  const result = calculateInvestmentResults(parameters);
+
+  function littleCal(initialInv, annualInv, year) {
+    return initialInv + annualInv * (year - 1);
+  }
+
   return (
     <table id="result">
       <thead>
         <tr>
           <th>Year</th>
           <th>Investment Value</th>
-          {/* 投資された総価値 */}
           <th>Interest(Year)</th>
-          {/* 当年の利子 */}
           <th>Total Interest</th>
-          {/* 利子総額 */}
           <th>Invested Capital</th>
-          {/* 投資された総額 */}
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>1</td>
-          <td>$17,100</td>
-          <td>$900</td>
-          <td>$900</td>
-          <td>$16,200</td>
-        </tr>
+        {result.map((element) => {
+          const investedCapital = littleCal(
+            parameters.initialInvestment,
+            element.annualInvestment,
+            element.year
+          );
+
+          return (
+            <tr key={element.year}>
+              <td>{element.year}</td>
+              <td>{formatter.format(element.valueEndOfYear)}</td>
+              <td>{formatter.format(investedCapital*(parameters.expectedReturn/100))}</td>
+              <td>{formatter.format(element.interest)}</td>
+              <td>{formatter.format(investedCapital)}</td>
+            </tr>
+          );
+        })}
       </tbody>
     </table>
   );

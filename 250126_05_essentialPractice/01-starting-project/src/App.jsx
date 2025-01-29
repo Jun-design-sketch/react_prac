@@ -1,14 +1,13 @@
 import { useState } from "react";
-import { formatter } from "./util/investment";
 import Header from "./components/Header";
-import SearchBar from "./components/SearchBar";
+import InputArea from "./components/InputArea";
 import Results from "./components/Results";
 
 function App() {
   const [parameters, setParameters] = useState({
     initialInvestment: 11000,
     annualInvestment: 4800,
-    expectReturn: 1500,
+    expectedReturn: 5,
     duration: 8,
   });
 
@@ -23,13 +22,11 @@ function App() {
   return (
     <>
       <Header />
-      <SearchBar
+      <InputArea
         parameters={parameters}
         handleChangeValue={handleChangeValue}
       />
-      <Results
-        parameters={parameters}
-      />
+      <Results parameters={parameters} />
     </>
   );
 }
