@@ -15,7 +15,7 @@ function App() {
     const { id, value } = event.target;
     setParameters((prev) => ({
       ...prev,
-      [id]: value,
+      [id]: Number(value),
     }));
   }
 

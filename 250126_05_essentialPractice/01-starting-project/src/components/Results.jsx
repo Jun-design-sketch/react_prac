@@ -21,7 +21,7 @@ export default function Results({ parameters }) {
         {result.map((element) => {
           const investedCapital = littleCal(
             parameters.initialInvestment,
-            element.annualInvestment,
+            parameters.annualInvestment,
             element.year
           );
 
@@ -29,7 +29,11 @@ export default function Results({ parameters }) {
             <tr key={element.year}>
               <td>{element.year}</td>
               <td>{formatter.format(element.valueEndOfYear)}</td>
-              <td>{formatter.format(investedCapital*(parameters.expectedReturn/100))}</td>
+              <td>
+                {formatter.format(
+                  investedCapital * (Number(parameters.expectedReturn / 100))
+                )}
+              </td>
               <td>{formatter.format(element.interest)}</td>
               <td>{formatter.format(investedCapital)}</td>
             </tr>
