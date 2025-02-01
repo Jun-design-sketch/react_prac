@@ -2,7 +2,6 @@ export default function InputArea({ parameters, handleChangeValue }) {
   return (
     <div id="user-input">
       <div className="input-group">
-        {/* TODO: 値を変えるとバグる */}
         <label>INITIAL INVESTMENT</label>
         <input
           id="initialInvestment"
