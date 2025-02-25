@@ -12,16 +12,19 @@ export default function TimeChallenge({ title, targetTime }) {
   // refはDOM要素のみでなく、任意の値を保持できる。
   // timer.currentはuseRefで作成されたtimerオブジェクトのcurrentプロパティ。
   // const timer = useRef(null) ==> オブジェクトtimerは {current: null}である
-  if(timeRemaining <= 0) {
+  if (timeRemaining <= 0) {
     clearInterval(timer.current);
-    setTimeRemaining(targetTime * 1000);
     dialog.current.open();
+  }
+
+  function handleReset() {
+    setTimeRemaining(targetTime * 1000);
   }
 
   function handleStart() {
     timer.current = setInterval(() => {
       // setTimeRemaining(-10);
-      setTimeRemaining(prevTimeRemaining => prevTimeRemaining - 10);
+      setTimeRemaining((prevTimeRemaining) => prevTimeRemaining - 10);
     }, 10);
   }
 
@@ -32,7 +35,12 @@ export default function TimeChallenge({ title, targetTime }) {
 
   return (
     <>
-      <ResultModal ref={dialog} targetTime={targetTime} result="lost" />
+      <ResultModal
+        ref={dialog}
+        targetTime={targetTime}
+        remainingTime={timeRemaining}
+        onReset={handleReset}
+      />
       <section className="challenge">
         <h2>{title}</h2>
         <p className="challenge-time">
